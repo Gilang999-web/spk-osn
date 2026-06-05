@@ -207,7 +207,7 @@ $konsisten                = $data['konsisten'] ?? false;
                         <th class="text-center"></th>
                         <th class="text-center">Prioritas</th>
                         <th class="text-center"></th>
-                        <th class="text-center">Hasil (Penjumlahan + Prioritas)</th>
+                        <th class="text-center">Hasil (Penjumlahan ÷ Prioritas)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -215,7 +215,7 @@ $konsisten                = $data['konsisten'] ?? false;
                     <tr>
                         <td class="fw-semibold text-center table-light"><?= htmlspecialchars($kriteria_list[$i]['kode']) ?></td>
                         <td class="text-center"><?= number_format($jumlah_penjumlahan_baris[$i], 4) ?></td>
-                        <td class="text-center text-muted fw-bold">+</td>
+                        <td class="text-center text-muted fw-bold">÷</td>
                         <td class="text-center"><?= number_format($prioritas[$i], 4) ?></td>
                         <td class="text-center text-muted fw-bold">=</td>
                         <td class="text-center fw-bold"><?= number_format($rasio[$i], 4) ?></td>

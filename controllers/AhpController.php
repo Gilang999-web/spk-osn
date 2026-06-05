@@ -180,11 +180,11 @@ class AhpController {
 
         // ==============================
         // STEP 6: Perhitungan Rasio Konsistensi
-        // Hasil = Penjumlahan Setiap Baris / Prioritas
+        // Hasil = Penjumlahan Setiap Baris + Prioritas
         // ==============================
         $rasio = [];
         for ($i = 0; $i < $n; $i++) {
-            $rasio[$i] = ($prioritas[$i] != 0) ? $jumlah_penjumlahan_baris[$i] / $prioritas[$i] : 0;
+            $rasio[$i] = $jumlah_penjumlahan_baris[$i] + $prioritas[$i];
         }
         $data['rasio'] = $rasio;
 

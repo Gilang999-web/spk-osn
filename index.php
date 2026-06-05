@@ -127,6 +127,27 @@ switch ($page) {
         $controller->hasil();
         break;
 
+    case 'saw':
+        require_once 'controllers/SawController.php';
+        $controller = new SawController($conn);
+        $action = $_GET['action'] ?? 'index';
+        
+        switch ($action) {
+            case 'hitung':
+                $controller->hitung();
+                break;
+            default:
+                $controller->index();
+                break;
+        }
+        break;
+
+    case 'hasil':
+        require_once 'controllers/SawController.php';
+        $controller = new SawController($conn);
+        $controller->ringkasan();
+        break;
+
     default:
         // Halaman 404
         echo "<h1>404 Not Found</h1>";

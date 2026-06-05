@@ -1,0 +1,9 @@
+# Ignore vendor folder
+vendor/
+
+# Ignore log files
+*.log
+
+# Windows specific
+desktop.ini
+Thumbs.db

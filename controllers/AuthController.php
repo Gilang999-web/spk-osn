@@ -31,6 +31,11 @@ class AuthController {
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['nama'] = $user['nama'];
                     $_SESSION['username'] = $user['username'];
+                    $_SESSION['foto'] = $user['foto'];
+                    $_SESSION['role'] = $user['role'] ?? 'Administrator';
+                    
+                    // Update last login
+                    $this->userModel->updateLastLogin($user['id']);
                     
                     header("Location: ?page=dashboard");
                     exit;

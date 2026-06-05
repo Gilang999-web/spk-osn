@@ -107,10 +107,11 @@ unset($_SESSION['success'], $_SESSION['error']);
                                         ?>
                                         <td class="text-center">
                                             <input type="number" step="0.01" min="0" max="100" 
-                                                   class="form-control form-control-sm text-center mx-auto" 
+                                                   class="form-control form-control-sm text-center mx-auto penilaian-input" 
                                                    style="width: 80px;"
                                                    name="nilai[<?= $s['id'] ?>][<?= $k['id'] ?>]" 
                                                    value="<?= htmlspecialchars($nilai_existing) ?>"
+                                                   data-kode="<?= htmlspecialchars($k['kode']) ?>"
                                                    placeholder="0.00"
                                                    required>
                                         </td>
@@ -121,12 +122,41 @@ unset($_SESSION['success'], $_SESSION['error']);
                     </table>
                 </div>
                 
-                <div class="p-3 bg-light text-end border-top">
+                <div class="p-3 bg-light text-end border-top d-flex justify-content-between">
+                    <button type="button" class="btn btn-outline-warning" id="btnRandomData" onclick="generateRandomData()">
+                        <i class="bi bi-shuffle me-1"></i> Isi Data Random (Testing)
+                    </button>
                     <button type="submit" class="btn btn-primary px-4">
                         <i class="bi bi-save me-1"></i> Simpan Penilaian
                     </button>
                 </div>
             </form>
+
+            <script>
+            function generateRandomData() {
+                if (!confirm('Isi semua kolom dengan data random untuk testing?')) return;
+
+                document.querySelectorAll('.penilaian-input').forEach(function(input) {
+                    var kode = input.getAttribute('data-kode');
+                    var val;
+
+                    if (kode === 'C1' || kode === 'C2') {
+                        // Nilai Tes / Rapor: 50-100
+                        val = Math.floor(Math.random() * 51) + 50;
+                    } else if (kode === 'C3' || kode === 'C4') {
+                        // Pengalaman Olimpiade / Keaktifan: 1-5
+                        val = Math.floor(Math.random() * 5) + 1;
+                    } else if (kode === 'C5') {
+                        // Minat Belajar: 20-90
+                        val = Math.floor(Math.random() * 71) + 20;
+                    } else {
+                        val = Math.floor(Math.random() * 91) + 10;
+                    }
+
+                    input.value = val;
+                });
+            }
+            </script>
         <?php endif; ?>
     </div>
 </div>

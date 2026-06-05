@@ -15,8 +15,9 @@
 <div class="auth-wrapper">
     <div class="auth-card">
         <div class="text-center mb-4">
-            <div class="auth-brand">DecisionPro</div>
-            <div class="text-muted small">SPK Penentuan Calon Peserta OSN</div>
+            <img src="assets/images/logo_nesatma.jpg" alt="Logo SMP 1 Manonjaya" style="width: 80px; height: auto; margin-bottom: 15px; border-radius: 8px;">
+            <div class="auth-brand" style="font-size: 1.5rem; line-height: 1.2;">Sistem Pendukung Keputusan</div>
+            <div class="text-muted small mt-2">Penentuan Calon Peserta OSN</div>
         </div>
         
         <?php if(!empty($error)): ?>
@@ -36,7 +37,7 @@
                 <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password" required>
             </div>
             
-            <button type="submit" class="btn btn-primary w-100">Login ke Sistem</button>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
         </form>
         
         <div class="text-center mt-4">

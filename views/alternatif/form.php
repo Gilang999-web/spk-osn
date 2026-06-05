@@ -7,6 +7,14 @@ $error      = $data['error'] ?? '';
 
 $is_edit = ($mode === 'edit' && $alternatif);
 $title   = $is_edit ? 'Edit Data Siswa' : 'Tambah Data Siswa';
+
+$tingkat = '';
+$rombel  = '';
+if ($is_edit && !empty($alternatif['kelas'])) {
+    $parts = explode(' ', $alternatif['kelas']);
+    $tingkat = $parts[0] ?? '';
+    $rombel  = $parts[1] ?? '';
+}
 ?>
 
 <!-- Toast Notification -->
@@ -47,23 +55,32 @@ $title   = $is_edit ? 'Edit Data Siswa' : 'Tambah Data Siswa';
         <form method="POST" action="?page=alternatif&action=<?= $is_edit ? 'update&id=' . $alternatif['id'] : 'store' ?>">
             <div class="row g-4">
                 <!-- Nama Siswa -->
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="nama_siswa" class="form-label fw-semibold small">Nama Lengkap Siswa <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="nama_siswa" name="nama_siswa"
-                           placeholder="Contoh: Ahmad Rizki Pratama"
+                           placeholder="Contoh: Ahmad Rizki"
                            value="<?= htmlspecialchars($alternatif['nama_siswa'] ?? '') ?>" required>
-                    <div class="form-text">Nama lengkap siswa sesuai data sekolah</div>
                 </div>
 
-                <!-- Kelas -->
+                <!-- Tingkat Kelas -->
                 <div class="col-md-3">
-                    <label for="kelas" class="form-label fw-semibold small">Kelas <span class="text-danger">*</span></label>
-                    <select class="form-select" id="kelas" name="kelas" required>
-                        <option value="" disabled <?= empty($alternatif['kelas'] ?? '') ? 'selected' : '' ?>>-- Pilih Kelas --</option>
-                        <option value="VII" <?= (($alternatif['kelas'] ?? '') === 'VII') ? 'selected' : '' ?>>Kelas VII</option>
-                        <option value="VIII" <?= (($alternatif['kelas'] ?? '') === 'VIII') ? 'selected' : '' ?>>Kelas VIII</option>
+                    <label for="tingkat_kelas" class="form-label fw-semibold small">Tingkat <span class="text-danger">*</span></label>
+                    <select class="form-select" id="tingkat_kelas" name="tingkat_kelas" required>
+                        <option value="" disabled <?= empty($tingkat) ? 'selected' : '' ?>>-- Pilih --</option>
+                        <option value="VII" <?= ($tingkat === 'VII') ? 'selected' : '' ?>>Kelas VII</option>
+                        <option value="VIII" <?= ($tingkat === 'VIII') ? 'selected' : '' ?>>Kelas VIII</option>
                     </select>
-                    <div class="form-text">Kelas siswa saat ini</div>
+                </div>
+
+                <!-- Rombel (A-K) -->
+                <div class="col-md-2">
+                    <label for="rombel" class="form-label fw-semibold small">Rombel <span class="text-danger">*</span></label>
+                    <select class="form-select" id="rombel" name="rombel" required>
+                        <option value="" disabled <?= empty($rombel) ? 'selected' : '' ?>>-- Pilih --</option>
+                        <?php foreach(['A','B','C','D','E','F','G','H','I','J','K'] as $r): ?>
+                            <option value="<?= $r ?>" <?= ($rombel === $r) ? 'selected' : '' ?>><?= $r ?></option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
 
                 <!-- Bidang OSN -->
@@ -71,17 +88,10 @@ $title   = $is_edit ? 'Edit Data Siswa' : 'Tambah Data Siswa';
                     <label for="bidang_osn" class="form-label fw-semibold small">Bidang OSN <span class="text-danger">*</span></label>
                     <select class="form-select" id="bidang_osn" name="bidang_osn" required>
                         <option value="" disabled <?= empty($alternatif['bidang_osn'] ?? '') ? 'selected' : '' ?>>-- Pilih Bidang --</option>
-                        <option value="IPA" <?= (($alternatif['bidang_osn'] ?? '') === 'IPA') ? 'selected' : '' ?>>
-                            IPA
-                        </option>
-                        <option value="IPS" <?= (($alternatif['bidang_osn'] ?? '') === 'IPS') ? 'selected' : '' ?>>
-                            IPS
-                        </option>
-                        <option value="Matematika" <?= (($alternatif['bidang_osn'] ?? '') === 'Matematika') ? 'selected' : '' ?>>
-                            Matematika
-                        </option>
+                        <option value="IPA" <?= (($alternatif['bidang_osn'] ?? '') === 'IPA') ? 'selected' : '' ?>>IPA</option>
+                        <option value="IPS" <?= (($alternatif['bidang_osn'] ?? '') === 'IPS') ? 'selected' : '' ?>>IPS</option>
+                        <option value="Matematika" <?= (($alternatif['bidang_osn'] ?? '') === 'Matematika') ? 'selected' : '' ?>>Matematika</option>
                     </select>
-                    <div class="form-text">Bidang OSN yang diikuti siswa</div>
                 </div>
             </div>
 

@@ -62,7 +62,21 @@ switch ($page) {
                 break;
         }
         break;
-
+        
+    case 'profil':
+        require_once 'controllers/ProfilController.php';
+        $controller = new ProfilController($conn);
+        $action = $_GET['action'] ?? 'index';
+        
+        if ($action === 'update') {
+            $controller->update();
+        } elseif ($action === 'update_password') {
+            $controller->update_password();
+        } else {
+            $controller->index();
+        }
+        break;
+        
     case 'alternatif':
         require_once 'controllers/AlternatifController.php';
         $controller = new AlternatifController($conn);

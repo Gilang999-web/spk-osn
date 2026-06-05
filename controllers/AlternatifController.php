@@ -57,11 +57,13 @@ class AlternatifController {
      */
     public function store() {
         $nama_siswa = trim($_POST['nama_siswa'] ?? '');
-        $kelas      = trim($_POST['kelas'] ?? '');
+        $tingkat    = trim($_POST['tingkat_kelas'] ?? '');
+        $rombel     = trim($_POST['rombel'] ?? '');
         $bidang_osn = $_POST['bidang_osn'] ?? '';
+        $kelas      = trim($tingkat . ' ' . $rombel);
 
         // Validasi
-        if (empty($nama_siswa) || empty($kelas) || empty($bidang_osn)) {
+        if (empty($nama_siswa) || empty($tingkat) || empty($rombel) || empty($bidang_osn)) {
             $_SESSION['flash_error'] = 'Semua field harus diisi!';
             header("Location: ?page=alternatif&action=create");
             exit;
@@ -73,8 +75,14 @@ class AlternatifController {
             exit;
         }
 
-        if (!in_array($kelas, ['VII', 'VIII'])) {
-            $_SESSION['flash_error'] = 'Kelas harus VII atau VIII!';
+        if (!in_array($tingkat, ['VII', 'VIII'])) {
+            $_SESSION['flash_error'] = 'Tingkat kelas harus VII atau VIII!';
+            header("Location: ?page=alternatif&action=create");
+            exit;
+        }
+
+        if (!in_array($rombel, ['A','B','C','D','E','F','G','H','I','J','K'])) {
+            $_SESSION['flash_error'] = 'Rombel tidak valid!';
             header("Location: ?page=alternatif&action=create");
             exit;
         }
@@ -112,11 +120,13 @@ class AlternatifController {
      */
     public function update($id) {
         $nama_siswa = trim($_POST['nama_siswa'] ?? '');
-        $kelas      = trim($_POST['kelas'] ?? '');
+        $tingkat    = trim($_POST['tingkat_kelas'] ?? '');
+        $rombel     = trim($_POST['rombel'] ?? '');
         $bidang_osn = $_POST['bidang_osn'] ?? '';
+        $kelas      = trim($tingkat . ' ' . $rombel);
 
         // Validasi
-        if (empty($nama_siswa) || empty($kelas) || empty($bidang_osn)) {
+        if (empty($nama_siswa) || empty($tingkat) || empty($rombel) || empty($bidang_osn)) {
             $_SESSION['flash_error'] = 'Semua field harus diisi!';
             header("Location: ?page=alternatif&action=edit&id=$id");
             exit;
@@ -128,8 +138,14 @@ class AlternatifController {
             exit;
         }
 
-        if (!in_array($kelas, ['VII', 'VIII'])) {
-            $_SESSION['flash_error'] = 'Kelas harus VII atau VIII!';
+        if (!in_array($tingkat, ['VII', 'VIII'])) {
+            $_SESSION['flash_error'] = 'Tingkat kelas harus VII atau VIII!';
+            header("Location: ?page=alternatif&action=edit&id=$id");
+            exit;
+        }
+
+        if (!in_array($rombel, ['A','B','C','D','E','F','G','H','I','J','K'])) {
+            $_SESSION['flash_error'] = 'Rombel tidak valid!';
             header("Location: ?page=alternatif&action=edit&id=$id");
             exit;
         }

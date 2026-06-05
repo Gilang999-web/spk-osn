@@ -83,8 +83,11 @@ unset($_SESSION['success'], $_SESSION['error']);
                                 <th width="50" class="text-center">No</th>
                                 <th>Nama Siswa</th>
                                 <?php foreach ($kriteria as $k): ?>
-                                    <th class="text-center" title="<?= htmlspecialchars($k['nama_kriteria']) ?>">
-                                        <?= htmlspecialchars($k['kode']) ?>
+                                    <th class="text-center" style="min-width:100px;">
+                                        <div><?= htmlspecialchars($k['kode']) ?></div>
+                                        <div class="small text-muted fw-normal" style="font-size:0.7rem;white-space:normal;line-height:1.2;">
+                                            <?= htmlspecialchars($k['nama_kriteria']) ?>
+                                        </div>
                                     </th>
                                 <?php endforeach; ?>
                             </tr>

@@ -77,5 +77,19 @@ class KriteriaModel {
         }
         return (int) $stmt->fetchColumn() > 0;
     }
+
+    /**
+     * Cek apakah nama kriteria sudah dipakai (untuk validasi unik)
+     */
+    public function isNamaExists($nama, $excludeId = null) {
+        if ($excludeId) {
+            $stmt = $this->conn->prepare("SELECT COUNT(*) FROM tb_kriteria WHERE LOWER(nama_kriteria) = LOWER(?) AND id != ?");
+            $stmt->execute([$nama, $excludeId]);
+        } else {
+            $stmt = $this->conn->prepare("SELECT COUNT(*) FROM tb_kriteria WHERE LOWER(nama_kriteria) = LOWER(?)");
+            $stmt->execute([$nama]);
+        }
+        return (int) $stmt->fetchColumn() > 0;
+    }
 }
 ?>

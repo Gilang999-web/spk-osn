@@ -56,6 +56,12 @@ class KriteriaController {
             exit;
         }
 
+        if ($this->model->isNamaExists($nama_kriteria)) {
+            $_SESSION['flash_error'] = "Nama kriteria \"$nama_kriteria\" sudah digunakan!";
+            header("Location: ?page=kriteria&action=create");
+            exit;
+        }
+
         $this->model->create([
             'kode'           => strtoupper($kode),
             'nama_kriteria'  => $nama_kriteria,
@@ -105,6 +111,12 @@ class KriteriaController {
             exit;
         }
 
+        if ($this->model->isNamaExists($nama_kriteria, $id)) {
+            $_SESSION['flash_error'] = "Nama kriteria \"$nama_kriteria\" sudah digunakan oleh kriteria lain!";
+            header("Location: ?page=kriteria&action=edit&id=$id");
+            exit;
+        }
+
         $this->model->update($id, [
             'kode'           => strtoupper($kode),
             'nama_kriteria'  => $nama_kriteria,
@@ -130,6 +142,28 @@ class KriteriaController {
         $this->model->delete($id);
         $_SESSION['flash_success'] = 'Kriteria "' . $kriteria['kode'] . '" berhasil dihapus!';
         header("Location: ?page=kriteria");
+        exit;
+    }
+
+    /**
+     * AJAX: Cek duplikat kode / nama kriteria secara real-time
+     */
+    public function checkDuplicate() {
+        header('Content-Type: application/json');
+
+        $field = $_GET['field'] ?? '';
+        $value = trim($_GET['value'] ?? '');
+        $excludeId = $_GET['exclude_id'] ?? null;
+
+        $exists = false;
+
+        if ($field === 'kode' && !empty($value)) {
+            $exists = $this->model->isKodeExists($value, $excludeId);
+        } elseif ($field === 'nama_kriteria' && !empty($value)) {
+            $exists = $this->model->isNamaExists($value, $excludeId);
+        }
+
+        echo json_encode(['exists' => $exists]);
         exit;
     }
 }

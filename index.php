@@ -57,6 +57,9 @@ switch ($page) {
             case 'delete':
                 $controller->delete($id);
                 break;
+            case 'check_duplicate':
+                $controller->checkDuplicate();
+                break;
             default:
                 $controller->index();
                 break;

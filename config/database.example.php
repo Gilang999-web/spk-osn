@@ -1,9 +1,10 @@
 <?php
 // config/database.php
+// SALIN FILE INI MENJADI database.php DAN ISI KREDENSIAL ANDA
 
 $host = 'localhost';
 $username = 'root';
-$password = ''; // Default laragon password is empty
+$password = ''; // Isi password database Anda
 $database = 'spk_osn';
 
 try {
